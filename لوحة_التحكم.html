@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم برنامج الارشفة | قفل وفتح النظام</title>
+    <!-- Firebase SDK (CDN) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCutD7S-BSJtH9vtM5YjUh-WB9p4VVDHCM",
+            authDomain: "arsheef-89475.firebaseapp.com",
+            databaseURL: "https://arsheef-89475-default-rtdb.firebaseio.com",
+            projectId: "arsheef-89475",
+            storageBucket: "arsheef-89475.firebasestorage.app",
+            messagingSenderId: "425536595274",
+            appId: "1:425536595274:web:8c87627381531f9fe98db3",
+            measurementId: "G-8DJTGZ6MPF"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const lockRef = ref(db, 'appStatus/isLocked');
+
+        const statusIndicator = document.getElementById('status-indicator');
+        const statusText = document.getElementById('status-text');
+        const lockBtn = document.getElementById('lock-btn');
+        const unlockBtn = document.getElementById('unlock-btn');
+
+        onValue(lockRef, (snapshot) => {
+            const isLocked = snapshot.val();
+            if (isLocked === true || isLocked === "true") {
+                statusIndicator.style.backgroundColor = '#ef4444'; // Red
+                statusText.innerText = 'حالة النظام: مقفل 🔒';
+                statusText.style.color = '#ef4444';
+            } else {
+                statusIndicator.style.backgroundColor = '#22c55e'; // Green
+                statusText.innerText = 'حالة النظام: مفتوح (يعمل طبيعياً) 🟢';
+                statusText.style.color = '#22c55e';
+            }
+        });
+
+        lockBtn.addEventListener('click', () => {
+            set(lockRef, true).then(() => {
+                alert('تم إرسال أمر القفل للأنظمة بنجاح!');
+            });
+        });
+
+        unlockBtn.addEventListener('click', () => {
+            set(lockRef, false).then(() => {
+                alert('تم إرسال أمر الفتح للأنظمة بنجاح!');
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #1e293b;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .status-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #94a3b8; /* Default gray */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .btn {
+            border: none;
+            padding: 16px;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .btn-lock {
+            background: #ef4444;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        .btn-unlock {
+            background: #22c55e;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">لوحة التحكم (قفل وفتح النظام)</div>
+        
+        <div class="status-box">
+            <div class="indicator" id="status-indicator"></div>
+            <div id="status-text">جاري الاتصال بـ Firebase...</div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-lock" id="lock-btn">قفل النظام فوراً 🔒</button>
+            <button class="btn btn-unlock" id="unlock-btn">فتح النظام 🟢</button>
+        </div>
+    </div>
+</body>
+</html>

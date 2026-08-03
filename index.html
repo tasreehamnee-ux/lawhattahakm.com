@@ -312,7 +312,7 @@
                 <h3 class="font-extrabold text-base text-white group-hover:text-blue-400 transition-colors">
                   نظام الأرشفة
                 </h3>
-                <span class="text-[11px] font-mono text-slate-400">لوحة_التحكم.html</span>
+                <span class="text-[11px] font-mono text-slate-400">archive.html</span>
               </div>
             </div>
             <span id="archive-connection-badge" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-800 text-slate-400 border border-slate-700 flex items-center gap-1">
@@ -351,10 +351,10 @@
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="openWorkspaceModal('لوحة_التحكم.html', 'لوحة تحكم برنامج الأرشفة 📁')" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-xs transition-all shadow-md shadow-indigo-600/20 flex items-center justify-center gap-1.5">
+            <button onclick="openWorkspaceModal('archive.html', 'لوحة تحكم برنامج الأرشفة 📁')" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-xs transition-all shadow-md shadow-indigo-600/20 flex items-center justify-center gap-1.5">
               <span>🔲 فتح داخل المركز</span>
             </button>
-            <a href="لوحة_التحكم.html" target="_blank" title="فتح في نافذة مستقلة" class="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl border border-slate-700 transition-all text-xs flex items-center justify-center">
+            <a href="archive.html" target="_blank" title="فتح في نافذة مستقلة" class="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl border border-slate-700 transition-all text-xs flex items-center justify-center">
               ↗️
             </a>
           </div>
@@ -648,7 +648,7 @@
         <button onclick="switchModalTab('dashboard.html', 'لوحة Gym 📱')" class="modal-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all font-semibold" data-src="dashboard.html">
           🏋️‍♂️ Gym Control
         </button>
-        <button onclick="switchModalTab('لوحة_التحكم.html', 'الأرشفة 📁')" class="modal-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all font-semibold" data-src="لوحة_التحكم.html">
+        <button onclick="switchModalTab('archive.html', 'الأرشفة 📁')" class="modal-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all font-semibold" data-src="archive.html">
           📂 الأرشفة
         </button>
         <button onclick="switchModalTab('admin.html', 'تحويل الملفات 🔐')" class="modal-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all font-semibold" data-src="admin.html">
@@ -911,6 +911,11 @@
       const iframe = document.getElementById('workspace-iframe');
       const titleEl = document.getElementById('modal-title');
       const urlEl = document.getElementById('modal-url-display');
+
+      // Sanitize Arabic filenames for Vercel/Linux servers
+      if (url.includes('لوحة_التحكم.html')) {
+        url = 'archive.html';
+      }
 
       titleEl.textContent = title;
       urlEl.textContent = url;

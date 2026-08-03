@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم وإدارة برنامج  تحويل املفات عن بعد 🔐</title>
+  <!-- Google Fonts: Outfit & Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Firebase Compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      background: radial-gradient(circle at top right, #f8fafc 0%, #f1f5f9 100%);
+      color: #1e293b;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans p-4 md:p-8 flex flex-col items-center justify-start">
+
+  <!-- Header -->
+  <header class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-200">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center shadow-md">
+        <span class="text-2xl">🔐</span>
+      </div>
+      <div>
+        <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+          لوحة التحكم السحابية
+          <span class="text-[10px] font-bold text-indigo-600 bg-indigo-500/10 px-2 py-0.5 rounded-md border border-indigo-500/20 uppercase">Admin</span>
+        </h1>
+        <p class="text-xs text-slate-500">إدارة قفل/فتح البرنامج ومراقبة سجل التحويلات عن بعد</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="/" target="_blank" class="px-4 py-2 text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-xl transition-all flex items-center gap-1">
+        <span>فتح التطبيق الرئيسي 🔗</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- Left Side: App Status & Configuration -->
+    <div class="lg:col-span-1 flex flex-col gap-6">
+
+      <!-- Status Card -->
+      <section class="glass rounded-3xl p-6 shadow-lg shadow-slate-100/50 relative overflow-hidden">
+        <h2 class="text-sm font-bold text-slate-500 mb-4 flex items-center gap-1.5">
+          <span>⚙️</span> حالة تشغيل البرنامج
+        </h2>
+
+        <!-- Active State View -->
+        <div id="status-container" class="flex flex-col items-center justify-center py-6 gap-4">
+          <div id="status-spinner" class="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          
+          <div id="status-info" class="hidden flex flex-col items-center gap-3 w-full">
+            <div id="status-badge" class="px-4 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-2">
+              <span id="status-dot" class="w-2.5 h-2.5 rounded-full animate-pulse"></span>
+              <span id="status-text">جاري الاتصال...</span>
+            </div>
+            
+            <p id="status-desc" class="text-xs text-slate-500 text-center px-4">
+              جاري جلب الحالة الحالية من قاعدة بيانات Firebase...
+            </p>
+            
+            <button id="toggle-lock-btn" class="w-full mt-4 py-3 rounded-2xl font-bold text-sm transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 border">
+              <span id="btn-icon">🔒</span>
+              <span id="btn-text">تحديث الحالة</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Firebase Config Card -->
+      <section class="glass rounded-3xl p-6 shadow-lg shadow-slate-100/50">
+        <h2 class="text-sm font-bold text-slate-500 mb-3 flex items-center gap-1.5">
+          <span>⚙️</span> إعدادات الاتصال بـ Firebase
+        </h2>
+        <p class="text-xs text-slate-500 mb-4">
+          أدخل كود إعدادات Firebase الخاص بقاعدة البيانات ليتم التحكم وتصفح السجلات من خلالها.
+        </p>
+
+        <textarea id="firebase-config-input" rows="6" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-700 font-mono focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-400" placeholder='مثال:
+{
+  "apiKey": "AIzaSy...",
+  "projectId": "...",
+  "appId": "..."
+}'></textarea>
+
+        <button id="save-config-btn" class="w-full mt-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow-md hover:shadow-indigo-500/10 cursor-pointer">
+          حفظ وربط قاعدة البيانات
+        </button>
+        <div id="config-status" class="mt-2 text-[11px] text-center font-semibold text-emerald-600 hidden"></div>
+      </section>
+
+    </div>
+
+    <!-- Right Side: Conversion History -->
+    <div class="lg:col-span-2 flex flex-col gap-6">
+
+      <!-- History Card -->
+      <section class="glass rounded-3xl p-6 shadow-lg shadow-slate-100/50 flex-1 flex flex-col min-h-[450px]">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+          <h2 class="text-sm font-bold text-slate-500 flex items-center gap-1.5">
+            <span>📂</span> سجل التحويلات السحابي الأخير
+          </h2>
+          <span id="history-count" class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">
+            0 تحويل
+          </span>
+        </div>
+
+        <!-- History Content Area -->
+        <div class="flex-1 overflow-y-auto max-h-[500px] pr-1 flex flex-col gap-3" id="history-container">
+          <!-- Loading placeholder -->
+          <div class="flex-1 flex flex-col items-center justify-center py-12 gap-3 text-slate-400" id="history-loading">
+            <div class="w-8 h-8 border-3 border-slate-200 border-t-indigo-600 rounded-full animate-spin"></div>
+            <p class="text-xs">جاري تحميل سجل السجلات...</p>
+          </div>
+          <!-- Empty view -->
+          <div class="flex-1 flex flex-col items-center justify-center py-12 text-slate-400 hidden" id="history-empty">
+            <span class="text-3xl mb-2">📁</span>
+            <p class="text-xs">لا توجد عمليات تحويل مسجلة في قاعدة البيانات حالياً.</p>
+          </div>
+          <!-- List will be populated here -->
+          <ul id="history-list" class="space-y-3 hidden"></ul>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Script logic -->
+  <script>
+    let db = null;
+    let auth = null;
+    let isLocked = false;
+    let firebaseConfig = null;
+
+    // Elements
+    const configInput = document.getElementById("firebase-config-input");
+    const saveConfigBtn = document.getElementById("save-config-btn");
+    const configStatus = document.getElementById("config-status");
+    
+    const statusSpinner = document.getElementById("status-spinner");
+    const statusInfo = document.getElementById("status-info");
+    const statusBadge = document.getElementById("status-badge");
+    const statusDot = document.getElementById("status-dot");
+    const statusText = document.getElementById("status-text");
+    const statusDesc = document.getElementById("status-desc");
+    const toggleLockBtn = document.getElementById("toggle-lock-btn");
+    const btnIcon = document.getElementById("btn-icon");
+    const btnText = document.getElementById("btn-text");
+
+    const historyLoading = document.getElementById("history-loading");
+    const historyEmpty = document.getElementById("history-empty");
+    const historyList = document.getElementById("history-list");
+    const historyCount = document.getElementById("history-count");
+
+    const defaultFirebaseConfig = {
+      apiKey: "AIzaSyAi9HGcm5NRfnJqkmT5IeWIxs8P0JDazj4",
+      authDomain: "tahw-43c7c.firebaseapp.com",
+      projectId: "tahw-43c7c",
+      storageBucket: "tahw-43c7c.firebasestorage.app",
+      messagingSenderId: "80959830245",
+      appId: "1:80959830245:web:b5b2a14a84969a0482fc0c"
+    };
+
+    // Load config from LocalStorage on start
+    const savedConfigRaw = localStorage.getItem("custom_firebase_config");
+    if (savedConfigRaw) {
+      configInput.value = savedConfigRaw;
+      try {
+        firebaseConfig = JSON.parse(savedConfigRaw);
+        initFirebase();
+      } catch (e) {
+        console.error("Failed to parse saved config", e);
+      }
+    } else {
+      // Use default fallback config
+      firebaseConfig = defaultFirebaseConfig;
+      configInput.value = JSON.stringify(defaultFirebaseConfig, null, 2);
+      initFirebase();
+    }
+
+    // Save button event listener
+    saveConfigBtn.addEventListener("click", () => {
+      const raw = configInput.value.trim();
+      if (!raw) {
+        localStorage.removeItem("custom_firebase_config");
+        window.location.reload();
+        return;
+      }
+      try {
+        const parsed = JSON.parse(raw);
+        if (!parsed.apiKey || !parsed.projectId || !parsed.appId) {
+          throw new Error("Missing credentials");
+        }
+        localStorage.setItem("custom_firebase_config", raw);
+        configStatus.innerText = "تم حفظ الإعدادات بنجاح! جاري التحديث...";
+        configStatus.classList.remove("hidden");
+        setTimeout(() => window.location.reload(), 1000);
+      } catch (err) {
+        alert("تنسيق الكود غير صالح. يرجى إدخال JSON صحيح يحتوي على apiKey و projectId و appId.");
+      }
+    });
+
+    // Initialize Firebase
+    function initFirebase() {
+      try {
+        if (firebase.apps.length === 0) {
+          firebase.initializeApp(firebaseConfig);
+        }
+        db = firebase.firestore();
+        auth = firebase.auth();
+        
+        // Listen to state changes
+        auth.signInAnonymously().then(() => {
+          listenToLockState();
+          loadHistory();
+        }).catch(err => {
+          showError("فشل تسجيل الدخول التلقائي لـ Firebase: " + err.message);
+        });
+      } catch (err) {
+        showError("فشل في تهيئة Firebase: " + err.message);
+      }
+    }
+
+    function showError(msg) {
+      statusSpinner.classList.add("hidden");
+      statusInfo.classList.remove("hidden");
+      statusBadge.className = "px-4 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-2 bg-rose-500/10 text-rose-600 border border-rose-500/20";
+      statusDot.className = "w-2.5 h-2.5 rounded-full bg-rose-500";
+      statusText.innerText = "خطأ اتصال";
+      statusDesc.innerText = msg;
+      toggleLockBtn.classList.add("hidden");
+      
+      historyLoading.classList.add("hidden");
+      historyEmpty.classList.remove("hidden");
+    }
+
+    // Listen to lock state from settings/appState
+    function listenToLockState() {
+      db.collection("settings").doc("appState").onSnapshot(doc => {
+        statusSpinner.classList.add("hidden");
+        statusInfo.classList.remove("hidden");
+        toggleLockBtn.classList.remove("hidden");
+
+        if (doc.exists) {
+          const data = doc.data();
+          isLocked = data.isLocked || false;
+        } else {
+          isLocked = false;
+        }
+
+        updateStatusUI();
+      }, err => {
+        console.error("Error listening to lock state", err);
+      });
+    }
+
+    function updateStatusUI() {
+      if (isLocked) {
+        statusBadge.className = "px-4 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-2 bg-rose-500/10 text-rose-600 border border-rose-500/20";
+        statusDot.className = "w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse";
+        statusText.innerText = "البرنامج مغلق مؤقتاً 🔴";
+        statusDesc.innerText = "تم إقفال البرنامج والتحويلات عن بُعد. لن يتمكن المستخدمون من تشغيل أي ملفات.";
+        
+        toggleLockBtn.className = "w-full mt-4 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-2xl transition-all shadow-md hover:shadow-emerald-500/10 cursor-pointer flex items-center justify-center gap-2 border-none";
+        btnIcon.innerText = "🔓";
+        btnText.innerText = "فتح وإتاحة البرنامج للجميع";
+      } else {
+        statusBadge.className = "px-4 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-2 bg-emerald-500/10 text-emerald-600 border border-emerald-500/20";
+        statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping";
+        statusText.innerText = "البرنامج نشط ومفتوح 🟢";
+        statusDesc.innerText = "البرنامج يعمل بشكل طبيعي والتحويلات متاحة لكافة الأجهزة والنسخ المفتوحة.";
+        
+        toggleLockBtn.className = "w-full mt-4 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm rounded-2xl transition-all shadow-md hover:shadow-rose-500/10 cursor-pointer flex items-center justify-center gap-2 border-none";
+        btnIcon.innerText = "🔒";
+        btnText.innerText = "قفل وإيقاف البرنامج فوراً";
+      }
+    }
+
+    // Toggle lock button event
+    toggleLockBtn.addEventListener("click", () => {
+      toggleLockBtn.disabled = true;
+      const nextState = !isLocked;
+      db.collection("settings").doc("appState").set({
+        isLocked: nextState,
+        updatedAt: new Date().toISOString()
+      }, { merge: true }).then(() => {
+        toggleLockBtn.disabled = false;
+      }).catch(err => {
+        alert("فشل تحديث حالة القفل: " + err.message);
+        toggleLockBtn.disabled = false;
+      });
+    });
+
+    // Load list of all conversions
+    function loadHistory() {
+      db.collectionGroup("conversions").orderBy("timestamp", "desc").limit(40).onSnapshot(snapshot => {
+        historyLoading.classList.add("hidden");
+        
+        if (snapshot.empty) {
+          historyEmpty.classList.remove("hidden");
+          historyList.classList.add("hidden");
+          historyCount.innerText = "0 تحويل";
+          return;
+        }
+
+        historyEmpty.classList.add("hidden");
+        historyList.classList.remove("hidden");
+        historyCount.innerText = `${snapshot.size} تحويل`;
+        
+        let html = "";
+        snapshot.forEach(doc => {
+          const item = doc.data();
+          const date = new Date(item.timestamp).toLocaleString("ar-EG");
+          const modeLabel = item.extractionMode === "word" ? "مستند Word 📝" : "جدول Excel 📊";
+          const statusClass = item.status === "success" ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" : "bg-rose-500/10 text-rose-600 border border-rose-500/20";
+          const statusLabel = item.status === "success" ? "نجح" : "فشل";
+          
+          html += `
+            <li class="p-4 bg-white border border-slate-100 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 hover:bg-slate-50 transition-all shadow-sm">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
+                  <span class="text-lg">${item.extractionMode === "word" ? "📝" : "📊"}</span>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs font-bold text-slate-800 truncate max-w-[250px]" title="${item.fileName}">${item.fileName}</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">التاريخ: ${date} | الحجم: ${item.fileSize || "مجهول"}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 self-end md:self-auto">
+                <span class="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded-md border border-slate-200 text-slate-600">
+                  ${modeLabel}
+                </span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md ${statusClass}">
+                  ${statusLabel}
+                </span>
+              </div>
+            </li>
+          `;
+        });
+        
+        historyList.innerHTML = html;
+      }, err => {
+        console.warn("Could not query all conversions collectively (admin permissions might be restricted):", err);
+        const userId = auth.currentUser?.uid || "anonymous";
+        db.collection("users").doc(userId).collection("conversions").orderBy("timestamp", "desc").limit(30).onSnapshot(snap => {
+          historyLoading.classList.add("hidden");
+          if (snap.empty) {
+            historyEmpty.classList.remove("hidden");
+            historyList.classList.add("hidden");
+            historyCount.innerText = "0 تحويل";
+            return;
+          }
+          historyEmpty.classList.add("hidden");
+          historyList.classList.remove("hidden");
+          historyCount.innerText = `${snap.size} تحويل (حسابك)`;
+          
+          let html = "";
+          snap.forEach(doc => {
+            const item = doc.data();
+            const date = new Date(item.timestamp).toLocaleString("ar-EG");
+            const modeLabel = item.extractionMode === "word" ? "مستند Word 📝" : "جدول Excel 📊";
+            const statusClass = item.status === "success" ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" : "bg-rose-500/10 text-rose-600 border border-rose-500/20";
+            const statusLabel = item.status === "success" ? "نجح" : "فشل";
+            
+            html += `
+              <li class="p-4 bg-white border border-slate-100 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 hover:bg-slate-50 transition-all shadow-sm">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
+                    <span class="text-lg">${item.extractionMode === "word" ? "📝" : "📊"}</span>
+                  </div>
+                  <div class="min-w-0">
+                    <p class="text-xs font-bold text-slate-800 truncate max-w-[250px]">${item.fileName}</p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">التاريخ: ${date} | الحجم: ${item.fileSize}</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 self-end md:self-auto">
+                  <span class="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded-md border border-slate-200 text-slate-600">
+                    ${modeLabel}
+                  </span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-md ${statusClass}">
+                    ${statusLabel}
+                  </span>
+                </div>
+              </li>
+            `;
+          });
+          historyList.innerHTML = html;
+        });
+      });
+    }
+  </script>
+</body>
+</html>
