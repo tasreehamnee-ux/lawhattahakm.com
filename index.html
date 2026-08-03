@@ -699,7 +699,7 @@
 
         <div class="flex items-center justify-end gap-2 pt-2">
           <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl font-bold text-xs hover:bg-slate-700 transition-all">إلغاء</button>
-          <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-xl font-bold text-xs hover:bg-brand-500 transition-all">إضافة</button>
+          <button type="submit" onclick="handleAddDashboard(event)" class="px-4 py-2 bg-brand-600 text-white rounded-xl font-bold text-xs hover:bg-brand-500 transition-all">إضافة</button>
         </div>
       </form>
     </div>
@@ -1031,30 +1031,33 @@
     }
 
     function handleAddDashboard(e) {
-      e.preventDefault();
-      const name = document.getElementById('custom-name').value;
-      const url = document.getElementById('custom-url').value;
-      const icon = document.getElementById('custom-icon').value || '📊';
+      if (e) e.preventDefault();
+      const nameEl = document.getElementById('custom-name');
+      const urlEl = document.getElementById('custom-url');
+      const iconEl = document.getElementById('custom-icon');
 
-      const cardId = activeEditingCardId || 'dash_' + Date.now();
+      const name = nameEl ? nameEl.value.trim() : '';
+      const url = urlEl ? urlEl.value.trim() : '';
+      const icon = (iconEl && iconEl.value.trim()) ? iconEl.value.trim() : '📊';
 
-      // Check if updating an existing rendered card
-      const existingCard = document.getElementById(`card-${cardId}`);
-
-      if (existingCard) {
-        // Update DOM element directly
-        existingCard.setAttribute('data-title', name);
-        existingCard.querySelector('.card-icon').textContent = icon;
-        existingCard.querySelector('.card-title').textContent = name;
-        existingCard.querySelector('.card-url').textContent = url;
-        existingCard.querySelector('.btn-launch').onclick = () => openWorkspaceModal(url, name);
-        existingCard.querySelector('.btn-external').href = url;
-      } else {
-        // Render new card
-        renderDashboardCard(name, url, icon, cardId, true);
+      if (!name || !url) {
+        alert('يرجى ملء جميع الحقول المطلوبة (اسم اللوحة والرابط)');
+        return;
       }
 
-      // Save to localStorage so it never disappears!
+      const cardId = activeEditingCardId || 'dash_' + Date.now();
+      const targetId = cardId.startsWith('card-') ? cardId : `card-${cardId}`;
+
+      // Remove existing placeholder or card to replace with fresh full card
+      const existingCard = document.getElementById(targetId) || document.getElementById(cardId);
+      if (existingCard) {
+        existingCard.remove();
+      }
+
+      // Render fresh active card with all buttons, icons & links
+      renderDashboardCard(name, url, icon, cardId, true);
+
+      // Save to localStorage permanently!
       saveDashboardToStorage(cardId, name, url, icon);
 
       closeAddModal();
