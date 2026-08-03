@@ -420,15 +420,15 @@
       <!-- 🛠️ [مكان شاغر 1 / FUTURE DASHBOARD PLACEHOLDER 1] -->
       <!-- يمكنك تعديل هذا الكرت مباشرة أو استبدال الرابط "https://example.com/your-dashboard" برابط لوحتك المستقبلية -->
       <!-- ========================================================================================= -->
-      <article data-title="لوحة تحكم إضافية 1 (شاغر)" class="dashboard-card glass-card border-dashed border-2 border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group hover:border-brand-500/50">
+      <article id="card-placeholder-1" data-title="لوحة تحكم إضافية 1 (شاغر)" class="dashboard-card glass-card border-dashed border-2 border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group hover:border-brand-500/50">
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <div class="card-icon w-12 h-12 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                 🌐
               </div>
               <div>
-                <h3 class="font-extrabold text-base text-slate-300 group-hover:text-white transition-colors">
+                <h3 class="card-title font-extrabold text-base text-slate-300 group-hover:text-white transition-colors">
                   لوحة تحكم مستقبليّة (1)
                 </h3>
                 <span class="text-[10px] font-mono text-slate-500">رابط شاغر / متاح للتخصيص</span>
@@ -444,18 +444,17 @@
           </p>
 
           <div class="bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-3.5 mb-5 flex items-center justify-between text-xs text-slate-500 font-mono">
-            <span class="truncate">https://example.com/your-link-1</span>
+            <span class="card-url truncate">https://example.com/your-link-1</span>
             <span>🔗</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-2.5 pt-2 border-t border-slate-800/80">
-          <!-- 💡 لتغيير الرابط: استبدل 'https://example.com' بالرابط المطلوب -->
-          <button onclick="openWorkspaceModal('https://example.com', 'لوحة تحكم مستقبليّة 1')" class="w-full py-2.5 bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5">
+          <button onclick="openWorkspaceModal('https://example.com/your-link-1', 'لوحة تحكم مستقبليّة 1')" class="btn-launch w-full py-2.5 bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5">
             <span>⚙️ تجربة الرابط الشاغر</span>
           </button>
           
-          <button onclick="openAddModal()" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-brand-400 rounded-xl border border-slate-800 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
+          <button onclick="openAddModal('placeholder-1', 'لوحة تحكم مستقبليّة 1', 'https://example.com/your-link-1', '🌐')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-brand-400 rounded-xl border border-slate-800 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
             <span>✏️ تعيين رابط لهذه اللوحة</span>
           </button>
         </div>
@@ -464,15 +463,15 @@
       <!-- ========================================================================================= -->
       <!-- 🛠️ [مكان شاغر 2 / FUTURE DASHBOARD PLACEHOLDER 2] -->
       <!-- ========================================================================================= -->
-      <article data-title="لوحة تحكم إضافية 2 (شاغر)" class="dashboard-card glass-card border-dashed border-2 border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group hover:border-brand-500/50">
+      <article id="card-placeholder-2" data-title="لوحة تحكم إضافية 2 (شاغر)" class="dashboard-card glass-card border-dashed border-2 border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group hover:border-brand-500/50">
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <div class="card-icon w-12 h-12 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                 🚀
               </div>
               <div>
-                <h3 class="font-extrabold text-base text-slate-300 group-hover:text-white transition-colors">
+                <h3 class="card-title font-extrabold text-base text-slate-300 group-hover:text-white transition-colors">
                   لوحة تحكم مستقبليّة (2)
                 </h3>
                 <span class="text-[10px] font-mono text-slate-500">رابط شاغر / متاح للتخصيص</span>
@@ -488,17 +487,17 @@
           </p>
 
           <div class="bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-3.5 mb-5 flex items-center justify-between text-xs text-slate-500 font-mono">
-            <span class="truncate">https://example.com/your-link-2</span>
+            <span class="card-url truncate">https://example.com/your-link-2</span>
             <span>🔗</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-2.5 pt-2 border-t border-slate-800/80">
-          <button onclick="openWorkspaceModal('https://example.com', 'لوحة تحكم مستقبليّة 2')" class="w-full py-2.5 bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5">
+          <button onclick="openWorkspaceModal('https://example.com/your-link-2', 'لوحة تحكم مستقبليّة 2')" class="btn-launch w-full py-2.5 bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5">
             <span>⚙️ تجربة الرابط الشاغر</span>
           </button>
           
-          <button onclick="openAddModal()" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-brand-400 rounded-xl border border-slate-800 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
+          <button onclick="openAddModal('placeholder-2', 'لوحة تحكم مستقبليّة 2', 'https://example.com/your-link-2', '🚀')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-brand-400 rounded-xl border border-slate-800 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
             <span>✏️ تعيين رابط لهذه اللوحة</span>
           </button>
         </div>
@@ -507,15 +506,15 @@
       <!-- ========================================================================================= -->
       <!-- 🛠️ [مكان شاغر 3 / FUTURE DASHBOARD PLACEHOLDER 3] -->
       <!-- ========================================================================================= -->
-      <article data-title="لوحة تحكم إضافية 3 (شاغر)" class="dashboard-card glass-card border-dashed border-2 border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group hover:border-brand-500/50">
+      <article id="card-placeholder-3" data-title="لوحة تحكم إضافية 3 (شاغر)" class="dashboard-card glass-card border-dashed border-2 border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group hover:border-brand-500/50">
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <div class="card-icon w-12 h-12 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                 ⚡
               </div>
               <div>
-                <h3 class="font-extrabold text-base text-slate-300 group-hover:text-white transition-colors">
+                <h3 class="card-title font-extrabold text-base text-slate-300 group-hover:text-white transition-colors">
                   لوحة تحكم مستقبليّة (3)
                 </h3>
                 <span class="text-[10px] font-mono text-slate-500">رابط شاغر / متاح للتخصيص</span>
@@ -531,17 +530,17 @@
           </p>
 
           <div class="bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-3.5 mb-5 flex items-center justify-between text-xs text-slate-500 font-mono">
-            <span class="truncate">https://example.com/your-link-3</span>
+            <span class="card-url truncate">https://example.com/your-link-3</span>
             <span>🔗</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-2.5 pt-2 border-t border-slate-800/80">
-          <button onclick="openWorkspaceModal('https://example.com', 'لوحة تحكم مستقبليّة 3')" class="w-full py-2.5 bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5">
+          <button onclick="openWorkspaceModal('https://example.com/your-link-3', 'لوحة تحكم مستقبليّة 3')" class="btn-launch w-full py-2.5 bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5">
             <span>⚙️ تجربة الرابط الشاغر</span>
           </button>
           
-          <button onclick="openAddModal()" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-brand-400 rounded-xl border border-slate-800 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
+          <button onclick="openAddModal('placeholder-3', 'لوحة تحكم مستقبليّة 3', 'https://example.com/your-link-3', '⚡')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-brand-400 rounded-xl border border-slate-800 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
             <span>✏️ تعيين رابط لهذه اللوحة</span>
           </button>
         </div>
@@ -550,15 +549,15 @@
       <!-- ========================================================================================= -->
       <!-- 🛠️ [مكان شاغر 4 / FUTURE DASHBOARD PLACEHOLDER 4] -->
       <!-- ========================================================================================= -->
-      <article data-title="لوحة تحكم إضافية 4 (شاغر)" class="dashboard-card glass-card border-dashed border-2 border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group hover:border-brand-500/50">
+      <article id="card-placeholder-4" data-title="لوحة تحكم إضافية 4 (شاغر)" class="dashboard-card glass-card border-dashed border-2 border-slate-700/80 rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group hover:border-brand-500/50">
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <div class="card-icon w-12 h-12 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                 📊
               </div>
               <div>
-                <h3 class="font-extrabold text-base text-slate-300 group-hover:text-white transition-colors">
+                <h3 class="card-title font-extrabold text-base text-slate-300 group-hover:text-white transition-colors">
                   لوحة تحكم مستقبليّة (4)
                 </h3>
                 <span class="text-[10px] font-mono text-slate-500">رابط شاغر / متاح للتخصيص</span>
@@ -574,17 +573,17 @@
           </p>
 
           <div class="bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-3.5 mb-5 flex items-center justify-between text-xs text-slate-500 font-mono">
-            <span class="truncate">https://example.com/your-link-4</span>
+            <span class="card-url truncate">https://example.com/your-link-4</span>
             <span>🔗</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-2.5 pt-2 border-t border-slate-800/80">
-          <button onclick="openWorkspaceModal('https://example.com', 'لوحة تحكم مستقبليّة 4')" class="w-full py-2.5 bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5">
+          <button onclick="openWorkspaceModal('https://example.com/your-link-4', 'لوحة تحكم مستقبليّة 4')" class="btn-launch w-full py-2.5 bg-slate-800 hover:bg-brand-600 text-slate-300 hover:text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5">
             <span>⚙️ تجربة الرابط الشاغر</span>
           </button>
           
-          <button onclick="openAddModal()" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-brand-400 rounded-xl border border-slate-800 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
+          <button onclick="openAddModal('placeholder-4', 'لوحة تحكم مستقبليّة 4', 'https://example.com/your-link-4', '📊')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-brand-400 rounded-xl border border-slate-800 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
             <span>✏️ تعيين رابط لهذه اللوحة</span>
           </button>
         </div>
@@ -949,15 +948,84 @@
       iframe.contentWindow.location.reload();
     }
 
-    // Add Custom Dashboard Handlers
-    function openAddModal() {
+    // =========================================================================
+    // 💾 نظام الحفظ الدائم في localStorage (PERMANENT STORAGE SYSTEM)
+    // =========================================================================
+    const STORAGE_KEY = 'custom_dashboards_hub_v1';
+
+    // Load saved dashboards on startup
+    function loadSavedDashboards() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        saved.forEach(item => {
+          renderDashboardCard(item.name, item.url, item.icon, item.id, false);
+        });
+        updateSystemsCounter();
+      } catch (e) {
+        console.error('Error loading saved dashboards', e);
+      }
+    }
+
+    function saveDashboardToStorage(id, name, url, icon) {
+      try {
+        let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        // Check if updating existing
+        const existingIndex = saved.findIndex(item => item.id === id);
+        if (existingIndex > -1) {
+          saved[existingIndex] = { id, name, url, icon };
+        } else {
+          saved.push({ id, name, url, icon });
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      } catch (e) {
+        console.error('Error saving dashboard', e);
+      }
+    }
+
+    function deleteDashboardFromStorage(id) {
+      try {
+        let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        saved = saved.filter(item => item.id !== id);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+        
+        // Remove element from DOM
+        const el = document.getElementById(`card-${id}`);
+        if (el) el.remove();
+        
+        updateSystemsCounter();
+        logActivity('تم حذف اللوحة بنجاح');
+      } catch (e) {
+        console.error('Error deleting dashboard', e);
+      }
+    }
+
+    function updateSystemsCounter() {
+      const container = document.getElementById('cards-container');
+      const totalEl = document.getElementById('total-systems-count');
+      if (container && totalEl) {
+        totalEl.textContent = container.children.length;
+      }
+    }
+
+    let activeEditingCardId = null;
+
+    // Add / Edit Custom Dashboard Handlers
+    function openAddModal(targetId = null, currentName = '', currentUrl = '', currentIcon = '📊') {
       const modal = document.getElementById('add-modal');
+      activeEditingCardId = targetId;
+
+      document.getElementById('custom-name').value = currentName;
+      document.getElementById('custom-url').value = currentUrl;
+      document.getElementById('custom-icon').value = currentIcon || '📊';
+
       modal.classList.remove('hidden');
       modal.classList.add('flex');
     }
 
     function closeAddModal() {
       const modal = document.getElementById('add-modal');
+      activeEditingCardId = null;
+      document.getElementById('add-dashboard-form').reset();
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     }
@@ -968,9 +1036,66 @@
       const url = document.getElementById('custom-url').value;
       const icon = document.getElementById('custom-icon').value || '📊';
 
+      const cardId = activeEditingCardId || 'dash_' + Date.now();
+
+      // Check if updating an existing rendered card
+      const existingCard = document.getElementById(`card-${cardId}`);
+
+      if (existingCard) {
+        // Update DOM element directly
+        existingCard.setAttribute('data-title', name);
+        existingCard.querySelector('.card-icon').textContent = icon;
+        existingCard.querySelector('.card-title').textContent = name;
+        existingCard.querySelector('.card-url').textContent = url;
+        existingCard.querySelector('.btn-launch').onclick = () => openWorkspaceModal(url, name);
+        existingCard.querySelector('.btn-external').href = url;
+      } else {
+        // Render new card
+        renderDashboardCard(name, url, icon, cardId, true);
+      }
+
+      // Save to localStorage so it never disappears!
+      saveDashboardToStorage(cardId, name, url, icon);
+
+      closeAddModal();
+      logActivity(`تم حفظ اللوحة بنجاح: ${name}`);
+      updateSystemsCounter();
+    }
+
+    function renderDashboardCard(name, url, icon, id, isNew = true) {
       const container = document.getElementById('cards-container');
 
+      // Check if updating an existing placeholder or card in the DOM
+      const targetId = id.startsWith('card-') ? id : `card-${id}`;
+      let existingCard = document.getElementById(targetId) || document.getElementById(id);
+
+      if (existingCard) {
+        existingCard.setAttribute('data-title', name);
+        existingCard.classList.remove('border-dashed', 'border-2', 'border-slate-700/80');
+        existingCard.classList.add('border', 'border-slate-700/50');
+        
+        const iconEl = existingCard.querySelector('.card-icon');
+        if (iconEl) iconEl.textContent = icon;
+
+        const titleEl = existingCard.querySelector('.card-title');
+        if (titleEl) titleEl.textContent = name;
+
+        const urlEl = existingCard.querySelector('.card-url');
+        if (urlEl) urlEl.textContent = url;
+
+        const btnLaunch = existingCard.querySelector('.btn-launch');
+        if (btnLaunch) {
+          btnLaunch.onclick = () => openWorkspaceModal(url, name);
+        }
+
+        const btnExt = existingCard.querySelector('.btn-external');
+        if (btnExt) btnExt.href = url;
+
+        return;
+      }
+
       const newCard = document.createElement('article');
+      newCard.id = targetId;
       newCard.setAttribute('data-title', name);
       newCard.className = "dashboard-card glass-card rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group";
       newCard.innerHTML = `
@@ -978,32 +1103,43 @@
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 bg-brand-500/10 border border-brand-500/20 rounded-2xl flex items-center justify-center text-2xl">
+              <div class="card-icon w-12 h-12 bg-brand-500/10 border border-brand-500/20 rounded-2xl flex items-center justify-center text-2xl">
                 ${icon}
               </div>
-              <div>
-                <h3 class="font-extrabold text-base text-white group-hover:text-brand-400 transition-colors">
+              <div class="overflow-hidden">
+                <h3 class="card-title font-extrabold text-base text-white group-hover:text-brand-400 transition-colors truncate">
                   ${name}
                 </h3>
-                <span class="text-[11px] font-mono text-slate-400 truncate max-w-[150px] block">${url}</span>
+                <span class="card-url text-[11px] font-mono text-slate-400 truncate max-w-[170px] block">${url}</span>
               </div>
             </div>
-            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-800 text-slate-400 border border-slate-700">
-              مُخصص
-            </span>
+            <div class="flex items-center gap-1">
+              <button onclick="openAddModal('${id}', '${name.replace(/'/g, "\\'")}', '${url.replace(/'/g, "\\'")}', '${icon}')" title="تعديل" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 text-xs">✏️</button>
+              <button onclick="deleteDashboardFromStorage('${id}')" title="حذف" class="p-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg border border-red-500/30 text-xs">🗑️</button>
+            </div>
           </div>
 
           <p class="text-xs text-slate-400 leading-relaxed mb-5">
-            لوحة مخصصة تم إضافتها حديثاً لاستعراضها وإدارتها داخل المركز.
+            لوحة مخصصة تم حفظها دائمًا ومتاحة للتشغيل السريع.
           </p>
+
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 mb-5 flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="text-[10px] text-slate-500 font-semibold mb-0.5">حالة الرابط:</span>
+              <span class="text-xs font-bold text-emerald-400">محفوظ ونشط 🟢</span>
+            </div>
+            <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-sm">
+              🔗
+            </div>
+          </div>
         </div>
 
         <div class="flex flex-col gap-2.5 pt-2 border-t border-slate-800/80">
-          <button onclick="openWorkspaceModal('${url}', '${name}')" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-bold text-xs transition-all shadow-md shadow-brand-600/20 flex items-center justify-center gap-1.5">
+          <button onclick="openWorkspaceModal('${url}', '${name.replace(/'/g, "\\'")}')" class="btn-launch w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-bold text-xs transition-all shadow-md shadow-brand-600/20 flex items-center justify-center gap-1.5">
             <span>🔲 فتح داخل المركز</span>
           </button>
           
-          <a href="${url}" target="_blank" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl border border-slate-700 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
+          <a href="${url}" target="_blank" class="btn-external w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl border border-slate-700 font-semibold text-xs transition-all text-center flex items-center justify-center gap-1">
             <span>فتح في تبويب خارجي</span>
             <span>↗️</span>
           </a>
@@ -1011,13 +1147,12 @@
       `;
 
       container.appendChild(newCard);
-      closeAddModal();
-      logActivity(`تم إضافة لوحة جديدة: ${name}`);
-
-      // Update counter
-      const totalEl = document.getElementById('total-systems-count');
-      if (totalEl) totalEl.textContent = container.children.length;
     }
+
+    // Initialize saved dashboards on load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSavedDashboards();
+    });
 
     // Search and Filter Functionality
     document.getElementById('search-input').addEventListener('input', function(e) {
